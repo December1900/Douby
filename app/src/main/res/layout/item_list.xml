@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_card"
+                android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:id="@+id/state_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="副券"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="28sp"
+            tools:text="1"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_seat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/state_layout"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/card_text_size"
+        tools:text="5排3座"/>
+
+
+    <TextView
+        android:id="@+id/tv_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@+id/state_layout"
+        android:text="电影名："
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_name_title"
+        android:layout_toRightOf="@+id/tv_name_title"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"
+        tools:text="一条狗的使命"/>
+
+    <TextView
+        android:id="@+id/tv_year_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name_title"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@+id/state_layout"
+        android:text="上映时间："
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_year_title"
+        android:layout_toRightOf="@+id/tv_year_title"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"
+        tools:text="2017"/>
+
+
+    <TextView
+        android:id="@+id/tv_rating_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_seat"
+        android:layout_alignLeft="@+id/tv_name_title"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/tv_seat"
+        android:text="评分："
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tv_rating_title"
+        android:layout_toRightOf="@+id/tv_rating_title"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        tools:text="8.0"/>
+
+    <TextView
+        android:id="@+id/tv_actor_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_rating_title"
+        android:layout_alignLeft="@+id/tv_rating_title"
+        android:text="主演："
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_actor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tv_actor_title"
+        android:layout_toRightOf="@+id/tv_actor_title"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"
+        android:maxLines="1"
+        tools:text="狗/猫"/>
+
+</RelativeLayout>
