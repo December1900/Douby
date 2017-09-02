@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.december1900.douby.R;
@@ -21,10 +22,11 @@ import butterknife.ButterKnife;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> {
 
-    private List<Movie.SubjectsEntity> mMovie;
-    private OnItemClickListener mOnItemClickListener;
 
-    public interface OnItemClickListener {
+    private List<Movie.SubjectsEntity> mMovie;
+    private OnTouchListener mTouchListener;
+
+    public interface OnTouchListener {
         void OnClick(View view, List<Movie.SubjectsEntity> movies, int position);
     }
 
@@ -39,16 +41,23 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.setIsRecyclable(false);
-        holder.mTvNum.append(position + 1 +"");
+        holder.mTvNum.append(position + 1 + "");
         Random random = new Random();
-        holder.mTvSeat.setText(random.nextInt(10) +""+"排" + random.nextInt(20) +""+"座");
+        holder.mTvSeat.setText(random.nextInt(10) + "" + "排" + random.nextInt(20) + "" + "座");
         holder.mTvName.setText(mMovie.get(position).getTitle());
         holder.mTvYear.setText(mMovie.get(position).getYear());
-        holder.mTvRating.append(mMovie.get(position).getRating().getAverage() +"");
-        holder.mTvActor.append(mMovie.get(position).getCasts().get(0).getName() +"/"+mMovie.get(position).getCasts().get(1).getName());
-
+        holder.mTvRating.append(mMovie.get(position).getRating().getAverage() + "");
+        holder.mTvActor.append(mMovie.get(position).getCasts().get(0).getName() + "/" + mMovie.get(position).getCasts().get(1).getName());
+        holder.mBaseLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mTouchListener != null){
+                    mTouchListener.OnClick(v,mMovie,position);
+                }
+            }
+        });
 
     }
 
@@ -57,12 +66,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         return mMovie.size();
     }
 
-    public void setOnClickListener(OnItemClickListener onClickListener) {
-        this.mOnItemClickListener = onClickListener;
+    public void setOnTouch(OnTouchListener onTouchListener) {
+        this.mTouchListener = onTouchListener;
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.base_layout)
+        RelativeLayout mBaseLayout;
         @BindView(R.id.tv_num)
         TextView mTvNum;
         @BindView(R.id.tv_seat)
@@ -78,7 +89,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
         public MyViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this,view);
+            ButterKnife.bind(this, view);
         }
     }
 }

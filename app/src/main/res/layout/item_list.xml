@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/base_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -103,8 +104,8 @@
         android:id="@+id/tv_rating_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tv_seat"
         android:layout_alignLeft="@+id/tv_name_title"
+        android:layout_alignTop="@+id/tv_seat"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/tv_seat"
         android:text="评分："
@@ -139,9 +140,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/tv_actor_title"
         android:layout_toRightOf="@+id/tv_actor_title"
+        android:maxLines="1"
         android:textColor="@color/textColor"
         android:textSize="@dimen/card_text_size"
-        android:maxLines="1"
         tools:text="狗/猫"/>
 
 </RelativeLayout>

@@ -86,8 +86,7 @@ public class MainActivity extends AppCompatActivity
         mTab.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.white));
         mTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
         mTab.setTabMode(TabLayout.MODE_FIXED);
-
-
+        
     }
 
     @Override

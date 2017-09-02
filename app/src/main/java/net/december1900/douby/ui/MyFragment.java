@@ -83,7 +83,11 @@ public class MyFragment extends BaseFragment {
         MainAdapter adapter;
         adapter = new MainAdapter(movies);
         mRecyclerView.setAdapter(adapter);
-
+        adapter.setOnTouch(new MainAdapter.OnTouchListener() {
+            @Override
+            public void OnClick(View view, List<Movie.SubjectsEntity> movie, int position) {
+            }
+        });
 
     }
 
