@@ -24,6 +24,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.DetailActivity"
+            android:theme="@style/noAnimTheme"
+            />
     </application>
 
 </manifest>

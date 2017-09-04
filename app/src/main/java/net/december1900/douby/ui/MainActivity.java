@@ -1,55 +1,60 @@
 package net.december1900.douby.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import net.december1900.douby.R;
-import net.december1900.douby.adapter.MyFragmentAdapter;
+import net.december1900.douby.adapter.MainAdapter;
+import net.december1900.douby.common.model.Movie;
+import net.december1900.douby.net.NetFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 import static net.december1900.douby.R.id.toolbar;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "MainActivity";
 
     @BindView(toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.tab)
-    TabLayout mTab;
     @BindView(R.id.nav_view)
     NavigationView mNavView;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.collapsingToolbarLayout)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
-    @BindView(R.id.viewPager)
-    ViewPager mViewPager;
+    @BindView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
 
-    private List<Fragment> fragments;
+    private MainAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        Toolb = (Toolbar) findViewById(R.id.toolbar);
 
 
         initView();
@@ -59,34 +64,48 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(mToolbar);
         mToolbar.setTitle("Douby");
         mCollapsingToolbarLayout.setTitle("A little bit more.");
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         mNavView.setNavigationItemSelectedListener(this);
 
-
-        List<String> titles = new ArrayList<>();
-        titles.add("电影");
-        titles.add("图书");
-        for (int i = 0; i < 2; i++) {
-            mTab.addTab(mTab.newTab().setText(titles.get(i)));
-        }
+        loadData();
+    }
 
 
-        fragments = new ArrayList<>();
-        fragments.add(MyFragment.newInstance());
-        fragments.add(MyFragment.newInstance());
+    private void loadData() {
+        NetFactory.getRetrofitService().getMovies("20")
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Movie>() {
+                    @Override
+                    public void accept(Movie movie) throws Exception {
+                        Log.d(TAG, movie.getSubjects() + " ");
+                        setupRecyclerView(movie.getSubjects());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.d(TAG, "onError : " + throwable.getMessage());
+                    }
+                });
+    }
 
-        MyFragmentAdapter adapter = new MyFragmentAdapter(getSupportFragmentManager(), fragments, titles);
-        mViewPager.setAdapter(adapter);
-        mTab.setupWithViewPager(mViewPager);
-        mTab.setTabGravity(TabLayout.GRAVITY_FILL);
-        mTab.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.white));
-        mTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
-        mTab.setTabMode(TabLayout.MODE_FIXED);
-        
+    private void setupRecyclerView(List<Movie.SubjectsEntity> movies) {
+        mAdapter = new MainAdapter(movies);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnClickListenter(new MainAdapter.OnClickListener() {
+            @Override
+            public void OnClick(View view, List<Movie.SubjectsEntity> movies, int position) {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra("x", (int) view.getX());
+                intent.putExtra("y", (int) view.getY());
+                intent.putExtra("detail",position);
+                intent.putExtra("actor",movies.get(position).getCasts().get(0).getId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

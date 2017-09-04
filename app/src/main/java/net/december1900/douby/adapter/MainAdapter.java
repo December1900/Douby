@@ -24,9 +24,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
 
     private List<Movie.SubjectsEntity> mMovie;
-    private OnTouchListener mTouchListener;
+    private OnClickListener mOnClickListener;
 
-    public interface OnTouchListener {
+    public interface OnClickListener {
         void OnClick(View view, List<Movie.SubjectsEntity> movies, int position);
     }
 
@@ -53,8 +53,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         holder.mBaseLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mTouchListener != null){
-                    mTouchListener.OnClick(v,mMovie,position);
+                if (mOnClickListener != null){
+                    mOnClickListener.OnClick(v,mMovie,position);
                 }
             }
         });
@@ -66,8 +66,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         return mMovie.size();
     }
 
-    public void setOnTouch(OnTouchListener onTouchListener) {
-        this.mTouchListener = onTouchListener;
+    public void setOnClickListenter(OnClickListener onClickListenter) {
+        this.mOnClickListener = onClickListenter;
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
