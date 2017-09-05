@@ -2,6 +2,7 @@ package net.december1900.douby.ui;
 
 import android.animation.Animator;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,11 +12,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import net.december1900.douby.R;
-import net.december1900.douby.common.model.Actor;
+import net.december1900.douby.common.model.Summary;
 import net.december1900.douby.net.NetFactory;
 
 import butterknife.BindView;
@@ -32,10 +34,12 @@ public class DetailActivity extends AppCompatActivity {
 
 
     private static final String TAG = "DetailActivity";
+    @BindView(R.id.mv_summary)
+    TextView mMvSummary;
     @BindView(R.id.mv_image)
-    ImageView mMvImage;
-    @BindView(R.id.mv_actor)
-    TextView mMvActor;
+    SimpleDraweeView mMvImage;
+    @BindView(R.id.collect_count)
+    TextView mCollectCount;
 
 
     private View mRevealLayout;
@@ -43,9 +47,7 @@ public class DetailActivity extends AppCompatActivity {
     private int mX;
     private int mY;
 
-    private int position;
-    private String actor;
-
+    private String movieId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,13 +59,12 @@ public class DetailActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         mRevealLayout = findViewById(R.id.reveal_layout);
-        mRevealLayout.setAlpha(0.9f);
 
         mX = getIntent().getIntExtra("x", 0);
         mY = getIntent().getIntExtra("y", 0);
 
-        position = getIntent().getIntExtra("detail", 0);
-        actor = getIntent().getStringExtra("actor");
+        movieId = getIntent().getStringExtra("movieId");
+        mRevealLayout.setAlpha(0.9f);
 
         mRevealLayout.post(new Runnable() {
             @Override
@@ -91,16 +92,21 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         loadData();
+
+
     }
 
-    private void loadData(){
-        NetFactory.getRetrofitService().getActor(actor)
+
+    private void loadData() {
+        NetFactory.getRetrofitService().getSummary(movieId)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Actor>() {
+                .subscribe(new Consumer<Summary>() {
                     @Override
-                    public void accept(Actor actor) throws Exception {
-                        mMvActor.setText(actor.getName());
+                    public void accept(Summary summary) throws Exception {
+                        mMvSummary.setText(summary.getSummary());
+                        mMvImage.setImageURI(Uri.parse(summary.getImages().getLarge()));
+                        mCollectCount.append(getResources().getString(R.string.collect_count_hint) + summary.getCollect_count());
                     }
                 });
     }

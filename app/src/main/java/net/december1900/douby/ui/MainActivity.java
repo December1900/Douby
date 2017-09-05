@@ -1,6 +1,7 @@
 package net.december1900.douby.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
@@ -14,6 +15,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import net.december1900.douby.R;
 import net.december1900.douby.adapter.MainAdapter;
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity
     CollapsingToolbarLayout mCollapsingToolbarLayout;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.bg_appbar)
+    SimpleDraweeView mBgAppbar;
 
     private MainAdapter mAdapter;
 
@@ -54,6 +60,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
 //        Toolb = (Toolbar) findViewById(R.id.toolbar);
 
 
@@ -62,13 +72,13 @@ public class MainActivity extends AppCompatActivity
 
     private void initView() {
         setSupportActionBar(mToolbar);
-        mToolbar.setTitle("Douby");
         mCollapsingToolbarLayout.setTitle("A little bit more.");
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         mNavView.setNavigationItemSelectedListener(this);
+        mBgAppbar.setImageURI(Uri.parse("res://drawable-xxhdpi/" + R.drawable.bg_appbar));
 
         loadData();
     }
@@ -101,8 +111,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 intent.putExtra("x", (int) view.getX());
                 intent.putExtra("y", (int) view.getY());
-                intent.putExtra("detail",position);
-                intent.putExtra("actor",movies.get(position).getCasts().get(0).getId());
+                intent.putExtra("movieId", movies.get(position).getId());
                 startActivity(intent);
             }
         });
