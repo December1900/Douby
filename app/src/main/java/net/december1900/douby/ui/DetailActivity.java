@@ -19,6 +19,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import net.december1900.douby.R;
 import net.december1900.douby.common.model.Summary;
 import net.december1900.douby.net.NetFactory;
+import net.december1900.douby.util.NetUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,17 +99,19 @@ public class DetailActivity extends AppCompatActivity {
 
 
     private void loadData() {
-        NetFactory.getRetrofitService().getSummary(movieId)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Summary>() {
-                    @Override
-                    public void accept(Summary summary) throws Exception {
-                        mMvSummary.setText(summary.getSummary());
-                        mMvImage.setImageURI(Uri.parse(summary.getImages().getLarge()));
-                        mCollectCount.append(getResources().getString(R.string.collect_count_hint) + summary.getCollect_count());
-                    }
-                });
+        if (NetUtil.isConnected()) {
+            NetFactory.getRetrofitService().getSummary(movieId)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<Summary>() {
+                        @Override
+                        public void accept(Summary summary) throws Exception {
+                            mMvSummary.setText(summary.getSummary());
+                            mMvImage.setImageURI(Uri.parse(summary.getImages().getLarge()));
+                            mCollectCount.append(getResources().getString(R.string.collect_count_hint) + summary.getCollect_count());
+                        }
+                    });
+        }
     }
 
     private Animator createRevealAnimator(boolean reversed, int x, int y) {

@@ -23,6 +23,7 @@ import net.december1900.douby.R;
 import net.december1900.douby.adapter.MainAdapter;
 import net.december1900.douby.common.model.Movie;
 import net.december1900.douby.net.NetFactory;
+import net.december1900.douby.util.NetUtil;
 
 import java.util.List;
 
@@ -85,21 +86,24 @@ public class MainActivity extends AppCompatActivity
 
 
     private void loadData() {
-        NetFactory.getRetrofitService().getMovies("20")
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Movie>() {
-                    @Override
-                    public void accept(Movie movie) throws Exception {
-                        Log.d(TAG, movie.getSubjects() + " ");
-                        setupRecyclerView(movie.getSubjects());
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.d(TAG, "onError : " + throwable.getMessage());
-                    }
-                });
+        if (NetUtil.isConnected()) {
+            NetFactory.getRetrofitService().getMovies("20")
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<Movie>() {
+                        @Override
+                        public void accept(Movie movie) throws Exception {
+                            Log.d(TAG, movie.getSubjects() + " ");
+                            setupRecyclerView(movie.getSubjects());
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            Log.d(TAG, "onError : " + throwable.getMessage());
+                        }
+                    });
+
+        }
     }
 
     private void setupRecyclerView(List<Movie.SubjectsEntity> movies) {
