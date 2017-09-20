@@ -7,3 +7,10 @@
 /build
 /captures
 .externalNativeBuild
+
+# apk
+*.apk
+
+# jks
+app/Douby.jks
+
