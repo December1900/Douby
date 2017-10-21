@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -23,6 +24,7 @@ import net.december1900.douby.util.NetUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -42,6 +44,8 @@ public class DetailActivity extends AppCompatActivity {
     SimpleDraweeView mMvImage;
     @BindView(R.id.mv_name)
     TextView mMvName;
+    @BindView(R.id.btn_comment)
+    Button mBtnComment;
 
 
     private View mRevealLayout;
@@ -165,4 +169,8 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.btn_comment)
+    public void onViewClicked() {
+        CommentActivity.start(getApplicationContext());
+    }
 }

@@ -30,6 +30,9 @@
             android:name=".ui.DetailActivity"
             android:theme="@style/noAnimTheme"
             />
+
+        <activity android:name=".ui.CommentActivity"
+                  android:launchMode="singleTask"/>
     </application>
 
 </manifest>

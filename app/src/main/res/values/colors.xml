@@ -7,4 +7,10 @@
     <color name="background_color">#FDF8F4</color>
     <color name="white">#ffffff</color>
     <color name="textColor">#141540</color>
+
+    <color name="comment_excellent_color">#FF8C8C</color>
+    <color name="comment_great_color">#FFD28C</color>
+    <color name="comment_normal_color">#50D6D3</color>
+    <color name="comment_bad_color">#66747B</color>
+
 </resources>
