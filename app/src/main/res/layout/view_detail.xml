@@ -2,31 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/reveal_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/background_color"
                 android:orientation="vertical">
-
-
-    <!--<android.support.design.widget.AppBarLayout-->
-    <!--android:id="@+id/app_bar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:clipToPadding="true"-->
-    <!--android:theme="@style/AppTheme.AppBarOverlay">-->
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/colorPrimary"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="2dp"
-        app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-
-    <!--</android.support.design.widget.AppBarLayout>-->
 
 
     <TextView
@@ -48,8 +26,7 @@
         android:layout_marginTop="60dp"
         android:cropToPadding="false"
         app:actualImageScaleType="fitXY"
-        app:elevation="3dp"
-        app:viewAspectRatio="0.7"/>
+        app:viewAspectRatio="0.67"/>
 
 
     <Button
@@ -90,6 +67,5 @@
         android:textColor="@color/textColor"
         android:textSize="@dimen/card_text_size"
         />
-
 
 </RelativeLayout>

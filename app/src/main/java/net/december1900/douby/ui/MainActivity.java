@@ -4,10 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,25 +29,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-import static net.december1900.douby.R.id.toolbar;
-
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    @BindView(toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.nav_view)
-    NavigationView mNavView;
-    @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
-    @BindView(R.id.collapsingToolbarLayout)
-    CollapsingToolbarLayout mCollapsingToolbarLayout;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     @BindView(R.id.bg_appbar)
     SimpleDraweeView mBgAppbar;
+    @BindView(R.id.collapsingToolbarLayout)
+    CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     private MainAdapter mAdapter;
 
@@ -74,13 +63,7 @@ public class MainActivity extends AppCompatActivity
     private void initView() {
         setSupportActionBar(mToolbar);
         mCollapsingToolbarLayout.setTitle("A little bit more.");
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.setDrawerListener(toggle);
-        toggle.syncState();
-        mNavView.setNavigationItemSelectedListener(this);
         mBgAppbar.setImageURI(Uri.parse("res://drawable-xxhdpi/" + R.drawable.bg_appbar));
-
         loadData();
     }
 
@@ -94,6 +77,10 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void accept(Movie movie) throws Exception {
                             Log.d(TAG, movie.getSubjects() + " ");
+                            for (int i = 0; i < movie.getSubjects().size(); i++) {
+                                Log.d(TAG,movie.getSubjects().get(i).getId());
+
+                            }
                             setupRecyclerView(movie.getSubjects());
                         }
                     }, new Consumer<Throwable>() {
@@ -116,19 +103,12 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("x", (int) view.getX());
                 intent.putExtra("y", (int) view.getY());
                 intent.putExtra("movieId", movies.get(position).getId());
+                intent.putExtra("movieName", movies.get(position).getTitle());
                 startActivity(intent);
             }
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -147,25 +127,4 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
 }

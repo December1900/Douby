@@ -11,7 +11,6 @@ import net.december1900.douby.R;
 import net.december1900.douby.common.model.Movie;
 
 import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,9 +42,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.setIsRecyclable(false);
-        holder.mTvNum.append(position + 1 + "");
-        Random random = new Random();
-        holder.mTvSeat.setText(random.nextInt(10) + "" + "排" + random.nextInt(20) + "" + "座");
         holder.mTvName.setText(mMovie.get(position).getTitle());
         holder.mTvYear.setText(mMovie.get(position).getYear());
         holder.mTvRating.append(mMovie.get(position).getRating().getAverage() + "");
@@ -53,8 +49,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         holder.mBaseLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnClickListener != null){
-                    mOnClickListener.OnClick(v,mMovie,position);
+                if (mOnClickListener != null) {
+                    mOnClickListener.OnClick(v, mMovie, position);
                 }
             }
         });
@@ -74,10 +70,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
         @BindView(R.id.base_layout)
         RelativeLayout mBaseLayout;
-        @BindView(R.id.tv_num)
-        TextView mTvNum;
-        @BindView(R.id.tv_seat)
-        TextView mTvSeat;
         @BindView(R.id.tv_name)
         TextView mTvName;
         @BindView(R.id.tv_year)

@@ -1,11 +1,7 @@
 package net.december1900.douby.net;
 
-import net.december1900.douby.App;
-
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -20,19 +16,19 @@ public class RetrofitClient {
 
     public RetrofitService mRetrofitService;
 
-    private File cacheFile = new File(App.sContext.getExternalCacheDir(), "response");
-    private Cache mCache = new Cache(cacheFile, 50 * 1024 * 1024);
+//    private File cacheFile = new File(App.sContext.getExternalCacheDir(), "response");
+//    private Cache mCache = new Cache(cacheFile, 50 * 1024 * 1024);
 
-    public RetrofitClient(){
+    public RetrofitClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
-                .addInterceptor(new CacheInterceptor())
+//                .addInterceptor(new CacheInterceptor())
                 .writeTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(20,TimeUnit.SECONDS)
-                .connectTimeout(20,TimeUnit.SECONDS)
-                .cache(mCache)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
+//                .cache(mCache)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -45,7 +41,7 @@ public class RetrofitClient {
         mRetrofitService = retrofit.create(RetrofitService.class);
     }
 
-    public RetrofitService getRetrofitService(){
+    public RetrofitService getRetrofitService() {
         return mRetrofitService;
     }
 }

@@ -35,12 +35,13 @@ public class DetailActivity extends AppCompatActivity {
 
 
     private static final String TAG = "DetailActivity";
+
     @BindView(R.id.mv_summary)
     TextView mMvSummary;
     @BindView(R.id.mv_image)
     SimpleDraweeView mMvImage;
-    @BindView(R.id.collect_count)
-    TextView mCollectCount;
+    @BindView(R.id.mv_name)
+    TextView mMvName;
 
 
     private View mRevealLayout;
@@ -49,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
     private int mY;
 
     private String movieId;
+    private String movieName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,11 +63,13 @@ public class DetailActivity extends AppCompatActivity {
 
         mRevealLayout = findViewById(R.id.reveal_layout);
 
+
         mX = getIntent().getIntExtra("x", 0);
         mY = getIntent().getIntExtra("y", 0);
 
         movieId = getIntent().getStringExtra("movieId");
-        mRevealLayout.setAlpha(0.9f);
+        movieName = getIntent().getStringExtra("movieName");
+        Log.d(TAG, movieId);
 
         mRevealLayout.post(new Runnable() {
             @Override
@@ -108,7 +112,7 @@ public class DetailActivity extends AppCompatActivity {
                         public void accept(Summary summary) throws Exception {
                             mMvSummary.setText(summary.getSummary());
                             mMvImage.setImageURI(Uri.parse(summary.getImages().getLarge()));
-                            mCollectCount.append(getResources().getString(R.string.collect_count_hint) + summary.getCollect_count());
+                            mMvName.setText("「 " + movieName + " 」");
                         }
                     });
         }
