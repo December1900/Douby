@@ -1,6 +1,7 @@
 package net.december1900.douby.net;
 
 import net.december1900.douby.common.model.Actor;
+import net.december1900.douby.common.model.Comment;
 import net.december1900.douby.common.model.Movie;
 import net.december1900.douby.common.model.Summary;
 
@@ -23,4 +24,7 @@ public interface RetrofitService {
 
     @GET("movie/subject/{id}")
     Observable<Summary> getSummary(@Path("id") String id);
+
+    @GET("http://120.77.220.239:8888/service/movie/{id}")
+    Observable<Comment> getComment(@Path("id") String id);
 }

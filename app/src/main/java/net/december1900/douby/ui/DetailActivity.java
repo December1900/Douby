@@ -55,6 +55,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private String movieId;
     private String movieName;
+    private int movieCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,7 +74,9 @@ public class DetailActivity extends AppCompatActivity {
 
         movieId = getIntent().getStringExtra("movieId");
         movieName = getIntent().getStringExtra("movieName");
+
         Log.d(TAG, movieId);
+
 
         mRevealLayout.post(new Runnable() {
             @Override
@@ -117,6 +120,8 @@ public class DetailActivity extends AppCompatActivity {
                             mMvSummary.setText(summary.getSummary());
                             mMvImage.setImageURI(Uri.parse(summary.getImages().getLarge()));
                             mMvName.setText("「 " + movieName + " 」");
+                            movieCount = summary.getCollect_count();
+                            Log.d(TAG, summary.getCollect_count() + "");
                         }
                     });
         }
@@ -171,6 +176,6 @@ public class DetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_comment)
     public void onViewClicked() {
-        CommentActivity.start(getApplicationContext());
+        CommentActivity.start(getApplicationContext(), movieId, movieCount);
     }
 }

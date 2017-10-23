@@ -30,12 +30,10 @@ public class CircleView extends View {
     private int mHeight;
     private int mWidth;
 
-    private String[] comments = new String[]{};
     private int[] percents = new int[]{};
-    private int[] colors = new int[]{getResources().getColor(R.color.comment_excellent_color),getResources().getColor(R.color.comment_great_color)
-                                     ,getResources().getColor(R.color.comment_normal_color),getResources().getColor(R.color.comment_bad_color)};
+    private int[] colors = new int[]{getResources().getColor(R.color.comment_excellent_color), getResources().getColor(R.color.comment_great_color)
+            , getResources().getColor(R.color.comment_normal_color), getResources().getColor(R.color.comment_bad_color)};
     private String text;
-
 
 
     public CircleView(Context context) {
@@ -53,13 +51,13 @@ public class CircleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.d(TAG,mHeight + "");
-        Log.d(TAG,mWidth + "");
+        Log.d(TAG, mHeight + "");
+        Log.d(TAG, mWidth + "");
         mHeight = getHeight();
         mWidth = getWidth();
         canvas.translate(mWidth / 2 - mRadius / 2, mHeight / 2 - mRadius / 2);
         initPaint();
-        canvas.drawText(text, 140, (mRadius + mStrokeWidth) / 2 , mTextPaint);
+        canvas.drawText(text, 140, (mRadius + mStrokeWidth) / 2, mTextPaint);
 
         drawCircle(canvas);
     }
@@ -96,18 +94,10 @@ public class CircleView extends View {
             mPaint.setColor(colors[i]);
             startPercent = sweepPercent + startPercent;
             sweepPercent = percents[i] * 360 / 100;
-            canvas.drawArc(new RectF(0,0,mRadius,mRadius),startPercent,sweepPercent,false,mPaint);
+            canvas.drawArc(new RectF(0, 0, mRadius, mRadius), startPercent, sweepPercent, false, mPaint);
         }
 
     }
-
-//    @Override
-//    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-//        super.onSizeChanged(w, h, oldw, oldh);
-//        mWidth = w;
-//        mHeight = h;
-//    }
-
 
 }
 

@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("y", (int) view.getY());
                 intent.putExtra("movieId", movies.get(position).getId());
                 intent.putExtra("movieName", movies.get(position).getTitle());
+
                 startActivity(intent);
             }
         });
