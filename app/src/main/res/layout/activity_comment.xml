@@ -18,6 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:theme="@style/AppTheme.AppBarOverlay"
             android:background="@color/background_color">
 
             <TextView
@@ -145,8 +146,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/num_count"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="24dp"
             android:layout_marginRight="24dp"
+            android:layout_marginTop="24dp"
             android:textColor="@color/textColor"
             android:textSize="14sp"/>
 
