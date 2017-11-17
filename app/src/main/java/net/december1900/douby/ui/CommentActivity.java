@@ -9,15 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.december1900.douby.R;
 import net.december1900.douby.common.model.Comment;
 import net.december1900.douby.net.NetFactory;
-
-import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,14 +32,12 @@ public class CommentActivity extends AppCompatActivity {
 
     @BindView(R.id.base_layout)
     RelativeLayout mBaseLayout;
-    @BindView(R.id.frame_layout)
-    FrameLayout mFrameLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.num_count)
     TextView mNumCount;
-    @BindView(R.id.mv_comment)
-    TextView mMvComment;
+    @BindView(R.id.frame_layout)
+    RelativeLayout mFrameLayout;
 
     private String id;
     private int count;
@@ -79,6 +74,25 @@ public class CommentActivity extends AppCompatActivity {
         id = getIntent().getStringExtra("movieId");
         count = getIntent().getIntExtra("movieCount", 159723);
 
+        percents[0] = 80;
+        percents[1] = 10;
+        percents[2] = 6;
+        percents[3] = 5;
+
+        int sum = 0;
+        for (int i = 0; i < 4; i++) {
+            sum += percents[i];
+            if (sum != 101) {
+                percents[3] += 101 - sum;
+            }
+        }
+
+        CircleView view = new CircleView(getApplicationContext());
+        view.setPercents(percents);
+        view.setText(text);
+        mFrameLayout.addView(view);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)view.getLayoutParams();
+        params.s
         loadComment();
 
 
@@ -92,10 +106,15 @@ public class CommentActivity extends AppCompatActivity {
                 .subscribe(new Consumer<Comment>() {
                     @Override
                     public void accept(Comment comment) throws Exception {
-                        percents[0] = Integer.parseInt(new DecimalFormat("0").format(comment.rate4));
-                        percents[1] = Integer.parseInt(new DecimalFormat("0").format(comment.rate3));
-                        percents[2] = Integer.parseInt(new DecimalFormat("0").format(comment.rate2));
-                        percents[3] = Integer.parseInt(new DecimalFormat("0").format(comment.rate1));
+//                        percents[0] = Integer.parseInt(new DecimalFormat("0").format(comment.rate4));
+//                        percents[1] = Integer.parseInt(new DecimalFormat("0").format(comment.rate3));
+//                        percents[2] = Integer.parseInt(new DecimalFormat("0").format(comment.rate2));
+//                        percents[3] = Integer.parseInt(new DecimalFormat("0").format(comment.rate1));
+
+                        percents[0] = 80;
+                        percents[1] = 10;
+                        percents[2] = 6;
+                        percents[3] = 5;
 
                         int sum = 0;
                         for (int i = 0; i < 4; i++) {
@@ -111,7 +130,6 @@ public class CommentActivity extends AppCompatActivity {
                         mFrameLayout.addView(view);
 
                         mNumCount.setText("评价人数：" + count);
-                        mMvComment.setText(comment.comment);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

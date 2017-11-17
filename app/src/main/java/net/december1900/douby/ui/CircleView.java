@@ -55,9 +55,9 @@ public class CircleView extends View {
         Log.d(TAG, mWidth + "");
         mHeight = getHeight();
         mWidth = getWidth();
-        canvas.translate(mWidth / 2 - mRadius / 2, mHeight / 2 - mRadius / 2);
+//        canvas.translate(mWidth / 2 - mRadius / 2, mHeight / 2);
         initPaint();
-        canvas.drawText(text, 140, (mRadius + mStrokeWidth) / 2, mTextPaint);
+        canvas.drawText(text, mWidth / 2, mHeight / 2, mTextPaint);
 
         drawCircle(canvas);
     }
@@ -83,6 +83,9 @@ public class CircleView extends View {
     }
 
 
+
+
+
     public void setPercents(int[] percents) {
         this.percents = percents;
     }
@@ -98,6 +101,8 @@ public class CircleView extends View {
         }
 
     }
+
+
 
 }
 

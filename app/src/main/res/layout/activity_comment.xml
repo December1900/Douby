@@ -1,157 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/background_color"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="评论情感分析"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+    </android.support.v7.widget.Toolbar>
+
 
     <RelativeLayout
-        android:id="@+id/base_layout"
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background_color"
-        android:orientation="vertical">
-
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            android:background="@color/background_color">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="评论情感分析"
-                android:textColor="@color/textColor"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-        </android.support.v7.widget.Toolbar>
-
-
-        <FrameLayout
-            android:id="@+id/frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/toolbar">
-        </FrameLayout>
-
-
-        <!--文字列表-->
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/frame_layout"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="64dp"
-            android:text="超棒"
-            android:textColor="#141540"
-            android:textSize="@dimen/card_text_size"/>
-
-        <TextView
-            android:id="@+id/bt_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/frame_layout"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="63dp"
-            android:layout_toLeftOf="@id/text1"
-            android:background="@drawable/shape"/>
-
-        <TextView
-            android:id="@+id/text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/bt_2"
-            android:layout_alignLeft="@id/text1"
-            android:layout_below="@+id/text1"
-            android:text="推荐"
-            android:textColor="#141540"
-            android:textSize="@dimen/card_text_size"/>
-
-        <TextView
-            android:id="@+id/bt_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/bt_1"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="18dp"
-            android:layout_toLeftOf="@+id/text2"
-            android:background="@drawable/shape2"/>
-
-        <TextView
-            android:id="@+id/text3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/bt_3"
-            android:layout_alignLeft="@id/text1"
-            android:layout_below="@+id/text2"
-            android:text="还不错"
-            android:textColor="@color/textColor"
-            android:textSize="@dimen/card_text_size"/>
-
-
-        <TextView
-            android:id="@+id/bt_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/bt_2"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="18dp"
-            android:layout_toLeftOf="@+id/text3"
-            android:background="@drawable/shape3"/>
-
-        <TextView
-            android:id="@+id/text4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/bt_4"
-            android:layout_alignLeft="@id/text1"
-            android:layout_below="@+id/text3"
-            android:text="什么鬼"
-            android:textColor="#141540"
-            android:textSize="@dimen/card_text_size"/>
-
-
-        <TextView
-            android:id="@+id/bt_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/bt_3"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="18dp"
-            android:layout_toLeftOf="@+id/text4"
-            android:background="@drawable/shape4"/>
-
-
-        <TextView
-            android:id="@+id/num_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text4"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="60dp"
-            android:textColor="#141540"
-            tools:text="评价人数：893604"/>
-
-
-        <TextView
-            android:id="@+id/mv_comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/num_count"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="24dp"
-            android:textColor="@color/textColor"
-            android:textSize="14sp"/>
-
-
+        android:layout_height="200dp"
+        android:layout_below="@id/toolbar">
     </RelativeLayout>
 
-</ScrollView>
+
+    <TextView
+        android:id="@+id/tv_excellent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/frame_layout"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="64dp"
+        android:text="超棒"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"/>
+
+    <ImageView
+        android:id="@+id/iv_excellent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/frame_layout"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="63dp"
+        android:layout_toLeftOf="@id/tv_excellent"
+        android:background="@drawable/shape_excellent"/>
+
+    <TextView
+        android:id="@+id/tv_great"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv_great"
+        android:layout_below="@+id/tv_excellent"
+        android:layout_centerInParent="true"
+        android:text="推荐"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"/>
+
+    <ImageView
+        android:id="@+id/iv_great"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/iv_excellent"
+        android:layout_below="@+id/iv_excellent"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/shape_great"/>
+
+    <TextView
+        android:id="@+id/tv_good"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_great"
+        android:layout_alignTop="@id/iv_good"
+        android:layout_below="@id/tv_great"
+        android:text="还不错"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"/>
+
+
+    <ImageView
+        android:id="@+id/iv_good"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/iv_excellent"
+        android:layout_below="@+id/iv_great"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/shape_good"/>
+
+    <TextView
+        android:id="@+id/tv_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_good"
+        android:layout_alignTop="@id/iv_normal"
+        android:layout_below="@id/tv_good"
+        android:layout_centerInParent="true"
+        android:text="一般"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"/>
+
+
+    <ImageView
+        android:id="@+id/iv_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/iv_good"
+        android:layout_below="@+id/iv_good"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/shape_normal"/>
+
+    <TextView
+        android:id="@+id/tv_shit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_good"
+        android:layout_below="@id/tv_good"
+        android:text="什么鬼"
+        android:layout_alignTop="@id/iv_shit"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/card_text_size"/>
+
+    <ImageView
+        android:id="@+id/iv_shit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/iv_normal"
+        android:layout_below="@id/iv_normal"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/shape_shit"/>
+
+    <TextView
+        android:id="@+id/num_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="#141540"
+        tools:text="评价人数：893604"/>
+
+
+</RelativeLayout>
+
