@@ -2,7 +2,7 @@
 
 ## Brief introduction
 Douby is the application which follows Material Design and filters movies by rating.
-What's more, the results by analyzing emotions from comments is provided.
+What's more, the results by analyzing emotions from comments are provided.
 
 ## Open source project want to practice
 + [RxJava](https://github.com/ReactiveX/RxJava)    
